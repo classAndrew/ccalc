@@ -1,5 +1,3 @@
-double integrateLSum(double (*f)(double x), int n, double a, double b);
-double integrateSim(double (*f)(double x), int n, double a, double b);
 
 double integrateLSum(double (*f)(double x), int n, double a, double b) {
     double deltax = (b-a)/n;
