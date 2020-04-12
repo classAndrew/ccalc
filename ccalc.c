@@ -14,9 +14,7 @@ int main(int argc, char *argv[]) {
         } 
         else if (strcmp(argv[1],"eval") == 0) {
             int ind = 0;
-            Nodep n = parse("3+(4+(1+2))", &ind);
-            printf("%f\n", n->left->val);
-            printf("%f\n", n->right->right->val);
+            Nodep n = parse_str("30.3+(4+(1+2))");
             printf("%f\n", eval(n));
             //printf("%d\n", n->optype);
         } else if (strcmp(argv[1], "test") == 0) {
@@ -29,8 +27,8 @@ int main(int argc, char *argv[]) {
             // add_to_vec(v, &i);
             // add_to_vec(v, &j);
             // add_to_vec(v, &k);
-            Token* tokens = tokenize("12345.678+60");
-            print_tokens(tokens, 3);
+            //Token* tokens = tokenize("12345.678+(60+2)");
+            //print_tokens(tokens, 7);
             //printf("%f %f %f\n", *(double* )get_at_vec(v, 0), *(double* )get_at_vec(v, 1), *(double* )get_at_vec(v, 2));
         }
         else {
