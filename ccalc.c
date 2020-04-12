@@ -1,10 +1,8 @@
 #include<stdio.h>
-#include<math.h>
 #include<limits.h>
 #include<string.h>
 #include "integration.h"
 #include "parsing/parser.c"
-#include<stdlib.h>
 
 double f(double x);
 
@@ -16,12 +14,25 @@ int main(int argc, char *argv[]) {
         } 
         else if (strcmp(argv[1],"eval") == 0) {
             int ind = 0;
-            Nodep n = parse("3+(4+9)", &ind);
+            Nodep n = parse("3+(4+(1+2))", &ind);
             printf("%f\n", n->left->val);
             printf("%f\n", n->right->right->val);
             printf("%f\n", eval(n));
             //printf("%d\n", n->optype);
-        } 
+        } else if (strcmp(argv[1], "test") == 0) {
+            // void *c = malloc(sizeof(void *) * 2);
+            // Vector* v = (Vector* )malloc(sizeof (struct vector));
+            // v->data = c;
+            // v->len = 0;
+            // v->max_size = 1;
+            // double i = 4, j = 2, k = 3;
+            // add_to_vec(v, &i);
+            // add_to_vec(v, &j);
+            // add_to_vec(v, &k);
+            Token* tokens = tokenize("12345.678+60");
+            print_tokens(tokens, 3);
+            //printf("%f %f %f\n", *(double* )get_at_vec(v, 0), *(double* )get_at_vec(v, 1), *(double* )get_at_vec(v, 2));
+        }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
             exit(-1);
