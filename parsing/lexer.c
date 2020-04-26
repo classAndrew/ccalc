@@ -55,6 +55,8 @@ Vector* tokenize(char* expr) {
                 ++i;
             }
             --i;
+            char nterm = '\0';
+            add_to_vec(buf, &nterm);
             Token* t = (Token* ) malloc(sizeof(Token));
             t->token_type = FUNC;
             t->token_val.funcname = vec_to_str(buf);

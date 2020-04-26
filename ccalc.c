@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
             //printf("%d\n", n->optype);
         } else if (strcmp(argv[1], "test") == 0) {
             Vector *toks = tokenize("abc(abc(1+20),3+4,7)+5");
-            for (int i = 0; i < 17; i++) {
+            for (int i = 0; i < toks->len; i++) {
                 int type = ((Token* ) get_at_vec(toks, i))->token_type;
                 if (type == NUM) printf("%f\n", ((Token* ) get_at_vec(toks, i))->token_val.var_val);
                 if (type == OP) printf("%c\n", ((Token* ) get_at_vec(toks, i))->token_val.operator);
