@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<limits.h>
 #include<string.h>
+#include<math.h>
 #include "integration.h"
-#include "parsing/parser.c"
+#include "parsing/lexer.c"
 
 double f(double x);
 
@@ -14,10 +15,18 @@ int main(int argc, char *argv[]) {
         } 
         else if (strcmp(argv[1],"eval") == 0) {
             int ind = 0;
-            Nodep n = parse_str("30.3+(4+(1+2))");
-            printf("%f\n", eval(n));
+           // Nodep n = parse_str("1+2+3");
+           // printf("%f\n", eval(n));
             //printf("%d\n", n->optype);
         } else if (strcmp(argv[1], "test") == 0) {
+            Vector *toks = tokenize("abc(abc(1+20),3+4,7)+5");
+            for (int i = 0; i < 17; i++) {
+                int type = ((Token* ) get_at_vec(toks, i))->token_type;
+                if (type == NUM) printf("%f\n", ((Token* ) get_at_vec(toks, i))->token_val.var_val);
+                if (type == OP) printf("%c\n", ((Token* ) get_at_vec(toks, i))->token_val.operator);
+                if (type == FUNC) printf("%s\n", ((Token* ) get_at_vec(toks, i))->token_val.funcname);
+                if (type == BRACKET) printf("%c\n", ((Token* ) get_at_vec(toks, i))->token_val.symbol);
+            }
             // void *c = malloc(sizeof(void *) * 2);
             // Vector* v = (Vector* )malloc(sizeof (struct vector));
             // v->data = c;

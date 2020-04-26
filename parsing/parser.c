@@ -10,7 +10,7 @@
 #define MAXEXPRSIZE 1000
 
 // Operations Enum
-enum {ADD, SUB, MUL, DIV};
+enum {NONE, ADD, SUB, MUL, DIV};
 // Token type enum
 enum {NONE, NUM, OP, BRACKET, VAR, FUNC};
 
@@ -89,6 +89,8 @@ Nodep parse_str(char* str) {
     int t = 0;
     return parse(tokenize(str), &t);
 }
+
+
 
 // Parses tokenarray to node AST
 Nodep parse(Token *str, int *ip) {

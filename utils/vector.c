@@ -37,3 +37,11 @@ void* get_at_vec(Vector* vec, int ind) {
     }
     return vec->data[ind];
 }
+
+void* vec_to_str(Vector* vec) {
+    char* str = (char* )malloc(sizeof(char)*vec->len);
+    for (int i = 0; i < vec->len; i++) {
+        str[i] = *(char* )get_at_vec(vec, i);
+    }
+    return str;
+}
