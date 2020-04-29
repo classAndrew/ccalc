@@ -1,47 +1,100 @@
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "vector.h"
 
-// A standard vector implementation
-
-static const int DEFAULTCAP = 10;
-
-struct vector {
-    void **data;
-    int max_size;
-    int len;
-};
-
-typedef struct vector Vector;
-
-void add_to_vec(Vector*, void*);
-void* get_at_vec(Vector*, int);
-
-void init_vec(Vector* vec) {
-    vec->data = malloc(sizeof(void*) * DEFAULTCAP);
-    vec->len = 0;
-    vec->max_size = DEFAULTCAP; //use calloc?
+void vector_init(Vector *v)
+{
+	v->data = NULL;
+	v->size = 0;
+	v->count = 0;
 }
 
-void add_to_vec(Vector* vec, void* element) {
-    if (vec->len == vec->max_size) {
-        vec->data = (void** )realloc(vec->data, sizeof(void*)*(vec->max_size*2));
-        vec->max_size = vec->max_size*2;
+int vector_count(Vector *v)
+{
+	return v->count;
+}
+
+void vector_add(Vector *v, void *e)
+{
+	if (v->size == 0) {
+		v->size = 10;
+		v->data = malloc(sizeof(void*) * v->size);
+		memset(v->data, '\0', sizeof(void) * v->size);
+	}
+
+	// condition to increase v->data:
+	// last slot exhausted
+	if (v->size == v->count) {
+		v->size *= 2;
+		v->data = realloc(v->data, sizeof(void*) * v->size);
+	}
+
+	v->data[v->count] = e;
+	v->count++;
+}
+
+void vector_set(Vector *v, int index, void *e)
+{
+	if (index >= v->count) {
+		return;
+	}
+
+	v->data[index] = e;
+}
+
+void *vector_get(Vector *v, int index)
+{
+	if (index >= v->count) {
+        printf("INVALID ACCESS TO VECTOR\n");
+		return NULL;
+	}
+
+	return v->data[index];
+}
+
+void vector_delete(Vector *v, int index)
+{
+	if (index >= v->count) {
+		return;
+	}
+
+	v->data[index] = NULL;
+
+	int i, j;
+	void **newarr = (void**)malloc(sizeof(void*) * v->count * 2);
+	for (i = 0, j = 0; i < v->count; i++) {
+		if (v->data[i] != NULL) {
+			newarr[j] = v->data[i];
+			j++;
+		}		
+	}
+
+	//free(v->data);
+
+	v->data = newarr;
+	v->count--;
+}
+
+void vector_free(Vector *v)
+{
+	free(v->data);
+}
+
+char* vector_tostr(Vector *v) {
+    int i;
+    char* str = (char *) malloc(sizeof(char)*vector_count(v)+1);
+    for (i = 0; i < vector_count(v); i++) {
+        char newchar = *(char *)vector_get(v, i);;
+        str[i] = newchar;
     }
-    (vec->data)[vec->len] = element;
-    vec->len += 1;
+    str[i] = '\0';
+    return str; 
 }
 
-void* get_at_vec(Vector* vec, int ind) {
-    if (ind > vec->max_size || ind < 0) {
-        printf("[CCALC] OUT OF BOUNDS VECTOR!\n");
-        exit(-1);
-    }
-    return vec->data[ind];
+void *vector_pop(Vector* v, int i) {
+    void* item = vector_get(v, i);
+    vector_delete(v, i);
+    return item;
 }
 
-void* vec_to_str(Vector* vec) {
-    char* str = (char* )malloc(sizeof(char)*vec->len);
-    for (int i = 0; i < vec->len; i++) {
-        str[i] = *(char* )get_at_vec(vec, i);
-    }
-    return str;
-}
