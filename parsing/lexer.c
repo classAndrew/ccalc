@@ -18,7 +18,9 @@ typedef struct {
         char operator; // Operator
     } token_val;
 } Token;
+
 int isOperator(char);
+
 Vector* tokenize(char* expr) {
     int i = 0;
     Vector* vec = (Vector* )malloc(sizeof(Vector)); // Vector of tokens

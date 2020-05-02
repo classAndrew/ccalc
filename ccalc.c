@@ -16,10 +16,12 @@ int main(int argc, char *argv[]) {
             printf("%20.20f\n", integrateSim(&f, atoi(argv[2]), atoi(argv[3]), atoi(argv[4])));
         }
         else if (strcmp(argv[1], "eval") == 0) {
-            int ind = 0;
-            // Nodep n = parse_str("1+2+3");
-            // printf("%f\n", eval(n));
-            //printf("%d\n", n->optype);
+            Vector *toks = tokenize(argv[2]);
+            Node* t = expr(toks, 0);
+            printf("%f\n", evaluate(t));
+        }
+        else if (strcmp(argv[1], "function") == 0) {
+
         }
         else if (strcmp(argv[1], "test") == 0) {
             //Vector *toks = tokenize("abc(abc(1+20),3+4,7)+5");
@@ -28,12 +30,7 @@ int main(int argc, char *argv[]) {
             printf("%f\n", evaluate(t));
             vector_free(toks);
             free_tree(t);
-            //printf("%c\n", t->optree.operator);
-            //print_tokens(toks);
 
-            //Token* tokens = tokenize("12345.678+(60+2)");
-            //print_tokens(tokens, 7);
-            //printf("%f %f %f\n", *(double* )get_at_vec(v, 0), *(double* )get_at_vec(v, 1), *(double* )get_at_vec(v, 2));
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
@@ -49,4 +46,3 @@ int main(int argc, char *argv[]) {
 double f(double x) {
     return pow(2.7182818284590452, x);
 }
-// LEFT SUM
