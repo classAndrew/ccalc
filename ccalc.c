@@ -33,7 +33,8 @@ int main(int argc, char *argv[]) {
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
-            exit(-1); 
+            exit(-1);
+             
         }
     }
     else {
