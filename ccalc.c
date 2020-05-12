@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
             printf("%f\n", evaluate(t));
             vector_free(toks);
             free_tree(t);
-
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
