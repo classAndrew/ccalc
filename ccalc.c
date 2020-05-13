@@ -39,7 +39,6 @@ int main(int argc, char *argv[]) {
     else {
         fputs("Invalid Arguments\n", stderr);
         exit(-1);
-        
     }
 }
 
