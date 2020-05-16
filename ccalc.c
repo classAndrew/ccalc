@@ -28,8 +28,8 @@ int main(int argc, char *argv[]) {
             Vector *toks = tokenize("1+2");
             Node* t = expr(toks, 0);
             printf("%f\n", evaluate(t));
-            vector_free(toks);
-            free_tree(t);
+            //vector_free(toks);
+            //free_tree(t);
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);

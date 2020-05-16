@@ -44,13 +44,13 @@ Node *nud(Vector *tokens, Token *token) {
     }
     else if (token->token_type == BRACKET && token->token_val.symbol == '(') {
         e = expr(tokens, 0);
-        if (((Token *)vector_get(tokens, 0))->token_val.symbol == ')') {
+        if (((Token *)vector_get(tokens, 0))->token_val.symbol != ')') {
             printf("NO CLOSING PARANTHESIS");
             return NULL;
         }
         return e;
     }
-    else if (token->token_type == FUNC && strcmp(token->token_val.funcname, "abc") == 0) {
+    else if (token->token_type == FUNC) { //&& strcmp(token->token_val.funcname, "abc") == 0) {
         Vector *funcargs = (Vector *) malloc(sizeof(Vector));
         vector_init(funcargs);
         if (((Token *) vector_pop(tokens, 0))->token_val.symbol != '(') {
@@ -142,10 +142,30 @@ double evaluate(Node *n) {
                 sum += evaluate(vector_get(n->node_u.functree.func_args, i));
             }
             return sum;
+        } else if (strcmp(n->node_u.functree.func, "sqrt")==0) {
+            int argc = vector_count(n->node_u.functree.func_args);
+            if (argc != 1) {
+                printf("[CCALC] Invalid Arg Count (EVAL STAGE)");
+                return -1;
+            }
+            return sqrt(evaluate(vector_get(n->node_u.functree.func_args, 0)));
         }
     } else if (n->type == OPTREE) {
-        if (n->node_u.optree.operator == '+') {
+        switch(n->node_u.optree.operator) {
+            // TODO USE MACROS
+            case '+':
             return evaluate(n->node_u.optree.left)+evaluate(n->node_u.optree.right);
+            case '-':
+            return evaluate(n->node_u.optree.left)-evaluate(n->node_u.optree.right);
+            case '/':
+            return evaluate(n->node_u.optree.left)/evaluate(n->node_u.optree.right);
+            case '*':
+            return evaluate(n->node_u.optree.left)*evaluate(n->node_u.optree.right);
+            case '^':
+            return pow(evaluate(n->node_u.optree.left),evaluate(n->node_u.optree.right));
+            default:
+            printf("[CCALC] UNKNOWN OPERATOR (EVAL STAGE)");
+            return -1;
         }
     } else if (n->type == VALUE) {
         return n->val;
@@ -180,6 +200,14 @@ int getBinding(Token* t) {
         return 100;
         case ')':
         return 0;
+        case '-':
+        return 150;
+        case '/':
+        return 250;
+        case '*':
+        return 200;
+        case '^':
+        return 300;
         default:
         printf("NOT FOUND BINDING\n");
         return -1;

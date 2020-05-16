@@ -102,5 +102,5 @@ void print_tok(Token* t) {
 }
 
 int isOperator(char c) {
-    return c == '+' || c == '-' || c == '*' || c == '/';
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
