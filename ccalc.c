@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <limits.h>
 //#include<string.h>
-#include <math.h>
 #include "integration.h"
 //#include "parsing/lexer.c"
 #include "parsing/eval.c"
 
 double f(double x);
-
+HashMap *progvars;
 // prgrmname n a b
 int main(int argc, char *argv[]) {
-
+    progvars = (HashMap *) malloc(sizeof(HashMap));
+    hm_init(progvars);
     if (argc >= 2) {
         if (strcmp(argv[1], "integrate") == 0) {
             printf("%20.20f\n", integrateSim(&f, atoi(argv[2]), atoi(argv[3]), atoi(argv[4])));
@@ -24,12 +24,13 @@ int main(int argc, char *argv[]) {
 
         }
         else if (strcmp(argv[1], "test") == 0) {
-            //Vector *toks = tokenize("abc(abc(1+20),3+4,7)+5");
-            Vector *toks = tokenize("1+2");
+            double val = 1.5;
+            char key = 't';
+            hm_insert(progvars, &key, &val);
+            //printf("%f\n", *(double*)hm_get(progvars, &key));
+            Vector *toks = tokenize("t+t");
             Node* t = expr(toks, 0);
             printf("%f\n", evaluate(t));
-            //vector_free(toks);
-            //free_tree(t);
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);

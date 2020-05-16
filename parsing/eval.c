@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include "lexer.c"
+#include "../utils/hashmap.c"
 
 enum {FUNCTREE, VALUE, OPTREE, VARIABLE};
-
+extern HashMap *progvars;
 typedef struct node_s {
 
     char type;
@@ -129,9 +130,8 @@ Node *expr(Vector* tokens, int rbp) {
 
 double get_variable(char*);
 double get_variable(char* var) {
-    if (!strcmp(var, "wow")) {
-        return 5;
-    }
+
+    return *(double *)hm_get(progvars, var);
 }
 
 double evaluate(Node *n) {
