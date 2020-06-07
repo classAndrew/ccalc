@@ -1,9 +1,9 @@
 #include <stdio.h>
+#include "utils/vector.h"
 #include <limits.h>
 //#include<string.h>
+#include "./parsing/eval.h"
 #include "integration.h"
-//#include "parsing/lexer.c"
-//#include "parsing/eval.c"
 
 double f(double x);
 Vars *progvars;

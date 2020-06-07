@@ -1,6 +1,4 @@
-#include "./parsing/eval.c"
 
-extern Vars *progvars;
 double integrateLSum(double (*f)(double x), int n, double a, double b) {
     double deltax = (b-a)/n;
      double sum = 0;

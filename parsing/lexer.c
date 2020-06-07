@@ -1,25 +1,4 @@
-#include "../utils/vector.c"
-#include<ctype.h>
-
-// Operations Enum
-enum {NONE, ADD, SUB, MUL, DIV};
-// Token type enum
-enum {NUM, OP, BRACKET, VAR, FUNC, COMMA};
-
-static char nterm = '\0';
-
-typedef struct {
-    char token_type;
-    union {
-        char symbol; // Brackets and variables
-        double var_val; // Variable / Numerical value
-        char *var_name;
-        char *funcname;
-        char operator; // Operator
-    } token_val;
-} Token;
-
-int isOperator(char);
+#include "../utils/vector.h"
 
 Vector* tokenize(char* expr) {
     int i = 0;
@@ -82,7 +61,7 @@ Vector* tokenize(char* expr) {
     return vec;
 }
 
-void print_tok(Token*);
+
 void print_tokens(Vector* tokens) {
     for (int i = 0; i < vector_count(tokens); i++) {
         print_tok((Token* )vector_get(tokens, i));

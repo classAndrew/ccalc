@@ -1,6 +1,5 @@
 #ifndef VECTOR_H__
 #define VECTOR_H__
-
 typedef struct vector_ {
     void** data;
     int size;
@@ -16,4 +15,5 @@ void vector_delete(Vector*, int);
 void vector_free(Vector*);
 char *vector_tostr(Vector*);
 void *vector_pop(Vector*, int);
+#include "vector.c"
 #endif
