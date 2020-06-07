@@ -1,9 +1,10 @@
 #include<stdio.h>
+#include <math.h>
 #include "lexer.c"
-#include "../utils/hashmap.c"
+#include "../utils/variables.c"
 
 enum {FUNCTREE, VALUE, OPTREE, VARIABLE};
-extern HashMap *progvars;
+extern Vars *progvars;
 typedef struct node_s {
 
     char type;
@@ -128,12 +129,6 @@ Node *expr(Vector* tokens, int rbp) {
     return left;
 }
 
-double get_variable(char*);
-double get_variable(char* var) {
-
-    return *(double *)hm_get(progvars, var);
-}
-
 double evaluate(Node *n) {
     if (n->type == FUNCTREE) {
         if (strcmp(n->node_u.functree.func, "abc")==0) {
@@ -170,7 +165,7 @@ double evaluate(Node *n) {
     } else if (n->type == VALUE) {
         return n->val;
     } else if (n->type == VARIABLE) {
-        return get_variable(n->var_name)*n->sign;
+        return var_get(progvars, n->var_name[0])*n->sign;
     }
 }
 void free_tree(Node*);
@@ -192,6 +187,10 @@ void free_tree(Node *tree) {
     } else if (tree->type == VALUE) {
         free(tree);
     }
+}
+
+double f_eval(Node *n, double val) {
+
 }
 
 int getBinding(Token* t) {

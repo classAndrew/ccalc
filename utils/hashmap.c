@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <ctype.h>
-#define DEFAULT 100
+#define DEFAULT 1000
 
 typedef struct {
     void **map;

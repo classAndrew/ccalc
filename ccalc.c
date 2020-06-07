@@ -3,14 +3,14 @@
 //#include<string.h>
 #include "integration.h"
 //#include "parsing/lexer.c"
-#include "parsing/eval.c"
+//#include "parsing/eval.c"
 
 double f(double x);
-HashMap *progvars;
+Vars *progvars;
 // prgrmname n a b
 int main(int argc, char *argv[]) {
-    progvars = (HashMap *) malloc(sizeof(HashMap));
-    hm_init(progvars);
+    progvars = (Vars *) malloc(sizeof(Vars));
+    var_init(progvars);
     if (argc >= 2) {
         if (strcmp(argv[1], "integrate") == 0) {
             printf("%20.20f\n", integrateSim(&f, atoi(argv[2]), atoi(argv[3]), atoi(argv[4])));
@@ -21,13 +21,15 @@ int main(int argc, char *argv[]) {
             printf("%f\n", evaluate(t));
         }
         else if (strcmp(argv[1], "function") == 0) {
-
+            Vector *toks = tokenize(argv[2]);
+            Node* t = expr(toks, 0);
+            // n, a, b
+            double result = integrateSim_AST(t, atoi(argv[3]), strtod(argv[4],0), strtod(argv[5],0));
+            printf("%f\n", result);
         }
         else if (strcmp(argv[1], "test") == 0) {
             double val = 1.5;
-            char key = 't';
-            hm_insert(progvars, &key, &val);
-            //printf("%f\n", *(double*)hm_get(progvars, &key));
+            var_add(progvars, 't', 1);
             Vector *toks = tokenize("t+t");
             Node* t = expr(toks, 0);
             printf("%f\n", evaluate(t));
