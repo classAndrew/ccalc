@@ -27,5 +27,4 @@ int greaterBinding(Token*, int);
 int getBinding(Token*);
 Node *expr(Vector*, int);
 Node *led(Node*, Token*, Vector*);
-#include "parser.c"
 #endif

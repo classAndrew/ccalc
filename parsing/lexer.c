@@ -1,5 +1,4 @@
-#include "../utils/vector.h"
-
+#include "lexer.h"
 Vector* tokenize(char* expr) {
     int i = 0;
     Vector* vec = (Vector* )malloc(sizeof(Vector)); // Vector of tokens

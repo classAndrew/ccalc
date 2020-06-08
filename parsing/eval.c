@@ -1,4 +1,4 @@
-
+#include "eval.h"
 
 double evaluate(Node *n) {
     if (n->type == FUNCTREE) {

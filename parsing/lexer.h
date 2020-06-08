@@ -1,6 +1,7 @@
 #ifndef LEX_H__
 #define LEX_H__
 #include <ctype.h>
+#include "../utils/vector.h"
 // Operations Enum
 enum {NONE, ADD, SUB, MUL, DIV};
 // Token type enum
@@ -22,5 +23,4 @@ typedef struct {
 int isOperator(char);
 void print_tok(Token*);
 Vector *tokenize(char*);
-#include "lexer.c"
 #endif
