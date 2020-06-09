@@ -2,7 +2,7 @@
 #define EVAL_H__
 #include <stdio.h>
 #include <math.h>
-#include "../utils/variables.h"
+#include "../utils/variable.h"
 #include "lexer.h"
 #include "parser.h"
 #include <string.h>

@@ -1,4 +1,4 @@
-#include "variables.h"
+#include "variable.h"
 double var_init(Vars *v) {
     v->size = DEFAULTSIZE;
     v->table = (double *)malloc(sizeof(double)*DEFAULTSIZE);
