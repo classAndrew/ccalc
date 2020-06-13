@@ -1,18 +1,4 @@
-#include <math.h>
-#include <stdlib.h>
-#include <ctype.h>
-#define DEFAULT 1000
-
-typedef struct {
-    void **map;
-    int size;
-} HashMap;
-
-void hm_init(HashMap*);
-void hm_insert(HashMap*, void*, void*);
-void *hm_get(HashMap*, void*);
-void hm_free(HashMap*);
-unsigned int hm_hash(void*);
+#include "hashmap.h"
 
 void hm_init(HashMap *hm) {
     hm->map = malloc(sizeof(void*)*DEFAULT);
@@ -32,7 +18,8 @@ void hm_free(HashMap *hm) {
 }
 
 unsigned int hm_hash(void *key) {
-    // WARNING: This is a terrible hashing algorithm. Please don't ever do this.
-    // UPDATE: uses the first character of a key (whose value is assumed to be a string)
-    return *(char*)key;
+    char *k = (char *)key;
+    int s = *k;
+    while (*(++k) != '\0') s += *k;
+    return s;
 }

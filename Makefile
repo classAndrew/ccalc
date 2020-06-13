@@ -2,7 +2,7 @@
 CC        := gcc
 SRC_DIR   := ccalc
 BUILD_DIR := build
-SUB_DIR   := build/utils build/parsing
+SUB_DIR   := build/utils build/parsing build/features
 BINARY    := a
 LIBS      := -lm
 PREPROC   := -D DEBUG_ON

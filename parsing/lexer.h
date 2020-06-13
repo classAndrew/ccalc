@@ -2,6 +2,8 @@
 #define LEX_H__
 #include <ctype.h>
 #include "../utils/vector.h"
+#include <stdlib.h>
+#include <stdio.h>
 // Operations Enum
 enum {NONE, ADD, SUB, MUL, DIV};
 // Token type enum
