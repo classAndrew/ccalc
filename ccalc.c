@@ -33,7 +33,6 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "test")) {
             //hm_insert()
-            //freadhm("/home/andrew/Desktop/MultiMC/live.check", NULL);
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
