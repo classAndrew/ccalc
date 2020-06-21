@@ -51,6 +51,7 @@ Node *nud(Vector *tokens, Token *token) {
             Node *otherexpr = expr(mini_expr, 0);
             vector_add(funcargs, otherexpr);
             Token *next_token = (Token *) vector_pop(tokens, 0);
+            print_tok(next_token);
             if (next_token->token_val.symbol == ')') {
                 break;
             } else if(next_token->token_val.symbol == ',') {
@@ -91,7 +92,14 @@ Node *led(Node *left, Token *t, Vector *tokens) {
 Node *expr(Vector* tokens, int rbp) {
     //print_tok((Token*)vector_get(tokens, 0));
     Node *left = nud(tokens, (Token *) vector_pop(tokens, 0));
+    Token* peek = (Token *)vector_get(tokens, 0);
+    if (peek->token_type == BRACKET && peek->token_val.symbol == ')') {
+        vector_pop(tokens, 0);
+        return left;
+    }
     while (vector_count(tokens) > 0 && greaterBinding((Token *)vector_get(tokens, 0), rbp)) {
+        
+
         Node *temp = led(left, (Token *) vector_pop(tokens, 0), tokens);
         //printf("%f\n", temp->optree.right->val);
         left = temp;

@@ -36,7 +36,7 @@ double evaluate(Node *n) {
     } else if (n->type == VALUE) {
         return n->val;
     } else if (n->type == VARIABLE) {
-        return var_get(progvars, n->var_name[0])*n->sign;
+        //return var_get(progvars, n->var_name[0])*n->sign;
     }
 }
 
