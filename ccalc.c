@@ -34,31 +34,30 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "newt")) {
             // Newton's Method
-            double x_0;
+            double x_0 = 1;
             te_variable vars[] = {{"x", &x_0}};
             te_expr *t = te_compile(argv[2], vars, progvars->size, NULL);
             double *zeros = (double*) calloc(100, sizeof(double));
             int ind = 0;
-            for (int j = -4; j < 5; j++) {
+            for (int j = -10; j < 10; j++) {
                 x_0 = j;
                 double fox, fpx;
                 for (int i = 0; i < 100; i++) {
                     fox = te_eval(t);
                     fpx = dy_dx_xp(t, &x_0);
-                    if (fpx < 0.1 || fpx > -0.1) {
-                        printf("SKIPPED\n");
+                    if (fpx < 0.001 && fpx > -0.001) {
                         goto skip;
                     } 
                     x_0 = x_0 - fox/fpx;
                 }
-                printf("%f\n", x_0);
+                //printf("%f\n", x_0);
                 if (zeros[ind-1] - x_0 > 0.01 || zeros[ind-1] - x_0 < -0.01) {
                     zeros[ind++] = x_0;
                 }
                 skip:
                     continue;   
             }
-            printf("%d\n", ind);
+            //printf("%d\n", ind);
             for (int i = 0; i < ind; i++) {
                 printf("%f\n", zeros[i]);
             }
