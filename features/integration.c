@@ -20,17 +20,19 @@ double integrateSim(double (*f)(double x), int n, double a, double b) {
     return sum*deltax*(2.0/3);
 }
 
-double integrateSim_AST(Node *node, int n, double a, double b) {
-    double sum = 0;
-    // var_add(progvars, 'x', a);
-    sum += evaluate(node);
-    // var_add(progvars, 'x', b);
-    sum += evaluate(node);
+double integrateSim_AST(char *expr, int n, double a, double b) {
+    double sum = 0, old = a;
+    te_variable vars[] = {{"x", &a}};
+    te_expr *node = te_compile(expr, vars, 1, NULL);
+    sum += te_eval(node);
+    a = b;
+    sum += te_eval(node);
+    a = old;
     double deltax = (b-a)/n;
     int i = 0;
     while ((a += deltax) < b) {
         // var_add(progvars, 'x', a);
-        sum += evaluate(node)*((++i)&1 ? 2 : 1);
+        sum += te_eval(node)*((++i)&1 ? 2 : 1);
     }
     return sum*deltax*(2.0/3);
 }
