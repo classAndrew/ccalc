@@ -19,12 +19,9 @@ int main(int argc, char *argv[]) {
     var_init(progvars);
     if (argc >= 2) {
         if (!strcmp(argv[1], "eval")) {
-            // Vector *toks = tokenize(argv[2]);
-            // // for (int i = 0; i < toks->count; i++) print_tok(vector_get(toks, i));
-            // Node* t = expr(toks, 0);
-            // // fail case (1-3)*(1-1)*(1-4)
-            // //printf("%f\n", t->node_u.optree.right->node_u.optree.right->val);
-            // printf("%f\n", evaluate(t));
+            te_expr *expr = te_compile(argv[2], NULL, 0, NULL);
+            printf("%f\n", te_eval(expr));
+            te_free(expr);
         }
         else if (!strcmp(argv[1], "int_function")) {
             // Vector *toks = tokenize(argv[2]);
