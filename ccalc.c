@@ -24,9 +24,6 @@ int main(int argc, char *argv[]) {
             te_free(expr);
         }
         else if (!strcmp(argv[1], "int_function")) {
-            // Vector *toks = tokenize(argv[2]);
-            // Node* t = expr(toks, 0);
-            // // n, a, b
             double result = integrateSim_AST(argv[2], atoi(argv[3]), strtod(argv[4],0), strtod(argv[5],0));
             printf("%f\n", result);
         }
