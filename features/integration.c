@@ -34,5 +34,6 @@ double integrateSim_AST(char *expr, int n, double a, double b) {
         // var_add(progvars, 'x', a);
         sum += te_eval(node)*((++i)&1 ? 2 : 1);
     }
+    te_free(node);
     return sum*deltax*(2.0/3);
 }
