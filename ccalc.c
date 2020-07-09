@@ -7,7 +7,9 @@
 #include "./parsing/tinyexpr.h"
 #include "./utils/hashmap.h"
 #include "./features/derivative.h"
+#include "features/series.h"
 #include "./features/newtraph.h"
+#include "features/series.h"
 
 Vars *progvars;
 HashMap *hm;
@@ -41,12 +43,17 @@ int main(int argc, char *argv[]) {
             te_variable vars[] = {{"x", &starting}};
             te_expr *expr = te_compile(argv[2], vars, 1, NULL);
             printf("%f\n", dny_dxn_xp(expr, atoi(argv[3]), &starting));
+            te_free(expr);
         }
         else if (!strcmp(argv[1], "run_file")) {
             freadhm(argv[2], NULL);
         }
         else if (!strcmp(argv[1], "test")) {
-
+            double a = 0;
+            te_variable vars[] = {{"x", &a}};
+            te_expr *expr = te_compile("cos(x)", vars, 1, NULL);
+            // printf("%f\n", dny_dxn_xp(expr, 2, &a));
+            gen_taylor_coe(expr, 7, &a);
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);

@@ -14,7 +14,10 @@ double dy_dx_xp(te_expr *node, double *x) {
 // The third derivative is the limit difference quotient of the second, and so on...
 double dny_dxn_xp(te_expr *node, int n, double *x) {
     // First derivative
-    if (n == 1) {
+    if (!n) {
+        return te_eval(node);
+    }
+    else if (n == 1) {
         return dy_dx_xp(node, x);
     }
     double prev_y = dny_dxn_xp(node, n-1, x);
