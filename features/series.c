@@ -7,7 +7,6 @@ double *gen_taylor_coe(te_expr *expr, int n, double *a) {
     double *coe = calloc(n, sizeof(double)); 
     for (int i = 0; i < n; i++) {
         coe[i] = dny_dxn_xp(expr, i, a)/n_fac(i);
-        printf("%f\n", coe[i]);
     }
     return coe;
 }

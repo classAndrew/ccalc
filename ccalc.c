@@ -48,6 +48,19 @@ int main(int argc, char *argv[]) {
         else if (!strcmp(argv[1], "run_file")) {
             freadhm(argv[2], NULL);
         }
+        else if (!strcmp(argv[1], "taylor")) {
+            double a = 0;
+            int terms = atoi(argv[3]);
+            te_variable vars[] = {{"x", &a}};
+            te_expr *expr = te_compile(argv[2], vars, terms, NULL);
+            double *coe = gen_taylor_coe(expr, terms, &a);
+            printf("This is currently a buggy feature.\n");
+            for (int i = 0; i < terms; i++) {
+                printf("%0.3f*x^%d%c", coe[i], i, (i != terms-1) ? '+' : 0);
+            }
+            printf("\n");
+            te_free(expr);
+        }
         else if (!strcmp(argv[1], "test")) {
             double a = 0;
             te_variable vars[] = {{"x", &a}};
