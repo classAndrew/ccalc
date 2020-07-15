@@ -2,13 +2,13 @@
 #include "utils/vector.h"
 #include <limits.h>
 //#include<string.h>
-#include "./features/integration.h"
-#include "./utils/filehandler.h"
-#include "./parsing/tinyexpr.h"
-#include "./utils/hashmap.h"
-#include "./features/derivative.h"
+#include "features/integration.h"
+#include "utils/filehandler.h"
+#include "parsing/tinyexpr.h"
+#include "utils/hashmap.h"
+#include "features/derivative.h"
 #include "features/series.h"
-#include "./features/newtraph.h"
+#include "features/newtraph.h"
 #include "features/series.h"
 
 Vars *progvars;
