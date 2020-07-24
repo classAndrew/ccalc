@@ -11,14 +11,8 @@
 #include "features/newtraph.h"
 #include "features/series.h"
 
-Vars *progvars;
-HashMap *hm;
 // prgrmname n a b
 int main(int argc, char *argv[]) {
-    progvars = (Vars *) malloc(sizeof(Vars));
-    hm = (HashMap *) malloc(sizeof(HashMap));
-    hm_init(hm);
-    var_init(progvars);
     if (argc >= 2) {
         if (!strcmp(argv[1], "eval")) {
             te_expr *expr = te_compile(argv[2], NULL, 0, NULL);
