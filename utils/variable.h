@@ -1,14 +1,7 @@
-#ifndef VARI_H__
-#define VARI_H__
-#include <stdlib.h>
-#include "../parsing/tinyexpr.h"
-#define DEFAULTSIZE 256
-
-typedef struct {
-    int size;
-    te_variable **table;
-} Vars;
-
-void var_init(Vars*);
-void var_set(Vars*, char*, double*);
+#ifndef VARIA_H__
+#define VARIA_H__
+#define charsize 26
+// Bit string maybe ¯\_(ツ)_/¯
+// xyz are common variables. So are abc.
+int var_count(const char *);
 #endif

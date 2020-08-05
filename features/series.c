@@ -11,7 +11,6 @@ double *gen_taylor_coe(te_expr *expr, int n, double *a) {
     return coe;
 }
 
-
 // Compute the nth factorial
 double n_fac(int n) {
     static double lastprod = 1;

@@ -10,9 +10,10 @@
 #include "features/series.h"
 #include "features/newtraph.h"
 #include "features/series.h"
+#include "utils/variable.h"
 
-// prgrmname n a b
 int main(int argc, char *argv[]) {
+
     if (argc >= 2) {
         if (!strcmp(argv[1], "eval")) {
             te_expr *expr = te_compile(argv[2], NULL, 0, NULL);
@@ -56,11 +57,7 @@ int main(int argc, char *argv[]) {
             te_free(expr);
         }
         else if (!strcmp(argv[1], "test")) {
-            double a = 0;
-            te_variable vars[] = {{"x", &a}};
-            te_expr *expr = te_compile("cos(x)", vars, 1, NULL);
-            // printf("%f\n", dny_dxn_xp(expr, 2, &a));
-            gen_taylor_coe(expr, 7, &a);
+            printf("%d\n", var_count("x"));
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);

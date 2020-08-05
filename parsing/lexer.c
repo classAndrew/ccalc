@@ -1,4 +1,8 @@
 #include "lexer.h"
+/*
+Code here is no longer used. See tinyexpr.c
+I'm removing the poorly written parsing and lexer code and transitioning fully to tinyexpr soon.
+*/
 Vector* tokenize(char* expr) {
     int i = 0;
     Vector* vec = (Vector* )malloc(sizeof(Vector)); // Vector of tokens
