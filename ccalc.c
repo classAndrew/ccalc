@@ -58,9 +58,9 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "test")) {
             char *varbuff;
-            char *bounds[] = {"1","2","3","x^2+4"};
-            int varc = var_count("x+y", &varbuff);
-            printf("%f\n", mulvar_iint("x+y", varc, varbuff, bounds));
+            char *bounds[] = {"1","2","3","x^2", "1","x"};
+            int varc = var_count("x+y+z", &varbuff);
+            printf("%f\n", mulvar_iint("x+y+z", varc, varbuff, bounds));
             free(varbuff);
         }
         else {

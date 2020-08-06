@@ -3,7 +3,7 @@
 #include "../parsing/parser.h"
 #include "../parsing/eval.h"
 #include "../parsing/tinyexpr.h"
-#define MUL_VAR_N 100;
+#define MUL_VAR_N 100
 
 double integrateLSum(double (*)(double), int, double, double);
 double integrateSim(double (*)(double ), int, double, double);

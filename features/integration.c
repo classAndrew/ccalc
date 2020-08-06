@@ -78,12 +78,12 @@ double mulvar_iint_h(te_expr* f, double *vf[], te_expr *bounds[], int i, int var
     double b = te_eval(bounds[i*2+1]);
     double deltx = (b-*vf[i])/MUL_VAR_N;
     if (i == varc-1) {
-        for (; fabs(*vf[i]-b) >= deltx; *vf[i]+=deltx) { // abs is needed to add "backwards" for integrating 3->c for c < 3
+        for (; fabs(*vf[i]-b) >= 1.0/MUL_VAR_N; *vf[i]+=deltx) { // abs is needed to add "backwards" for integrating 3->c for c < 3
             sum += te_eval(f);
         }
         return sum*deltx;
     } 
-    for (; fabs(*vf[i]-b) >= deltx; *vf[i]+=deltx) {
+    for (; fabs(*vf[i]-b) >= 1.0/MUL_VAR_N; *vf[i]+=deltx) {
         sum += mulvar_iint_h(f, vf, bounds, i+1, varc);
     }
     return sum*deltx;
