@@ -57,9 +57,11 @@ int main(int argc, char *argv[]) {
             te_free(expr);
         }
         else if (!strcmp(argv[1], "test")) {
-            double d = 10;
-            te_variable v[] = {{"x", &d}};
-            printf("%f\n", te_eval(te_compile("300", v, 1, NULL)));
+            char *varbuff;
+            char *bounds[] = {"1","2","3","x^2+4"};
+            int varc = var_count("x+y", &varbuff);
+            printf("%f\n", mulvar_iint("x+y", varc, varbuff, bounds));
+            free(varbuff);
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
