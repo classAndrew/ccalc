@@ -7,5 +7,7 @@
 double integrateLSum(double (*)(double), int, double, double);
 double integrateSim(double (*)(double ), int, double, double);
 double integrateSim_AST(char *, int, double, double);
+// Multivariable Iterated Integral
+double mulvar_iint(char *, int, char*, const char **);
 
 #endif

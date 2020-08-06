@@ -3,5 +3,5 @@
 #define charsize 26
 // Bit string maybe ¯\_(ツ)_/¯
 // xyz are common variables. So are abc.
-int var_count(const char *);
+int var_count(const char *, char **);
 #endif
