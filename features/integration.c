@@ -41,15 +41,15 @@ double integrateSim_AST(char *expr, int n, double a, double b) {
 double mulvar_iint(char * expr, int varc, char *varnames, const char **bounds) {
     te_variable vars[varc];
     double at_d[varc]; 
-    te_expr bounds[varc*2];
+    te_expr *bounds_ex[varc*2];
 
     for (int i = 0; i < varc; i++) {
         char name[] = {varnames[i], '\0'};
         te_variable v = {name,&at_d[i]};
         vars[i] = v; 
         // Each bound will have to be its own expression. The eval of each expr stored in at_d
-        bounds[i*2] = te_compile(bounds[i*2], vars, varc, NULL);
-        bounds[i*2+1] = te_compile(bounds[i*2+1], vars, varc, NULL);
+        bounds_ex[i*2] = te_compile(bounds[i*2], vars, varc, NULL);
+        bounds_ex[i*2+1] = te_compile(bounds[i*2+1], vars, varc, NULL);
     }
     for (int i = 0; i < varc; i++) {
         

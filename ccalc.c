@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "test")) {
             double d = 10;
-            const te_variable v = {{"x", &d}};
-            printf("%f\n", te_eval(te_compile("300", &v, 1, NULL)));
+            te_variable v[] = {{"x", &d}};
+            printf("%f\n", te_eval(te_compile("300", v, 1, NULL)));
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
