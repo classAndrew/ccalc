@@ -42,18 +42,15 @@ double mulvar_iint(char * expr, int varc, char *varnames, char **bounds) {
     te_variable vars[varc];
     double vec[varc];
     double *at_d[varc]; 
-    char *name_ps[varc];
+    char name_ps[2][varc];
     te_expr *bounds_ex[varc*2];
     for (int i = 0; i < varc; i++) {
-        char *name = malloc(sizeof(char)*2); 
-        name_ps[i] = name;
-        // This has to be dynamically allocated
-        // compiling requires pointer to name which is changing every loop. I would have to
-        // push each name onto stack, but it's fine since this is only done in one loop.
-        name[0] = varnames[i];
-        name[1] = '\0';
+        name_ps[i][0] = varnames[i];
+        name_ps[i][1] = '\0';
         at_d[i] = &vec[i];
-        te_variable v = {name,at_d[i]};
+        
+        te_variable v = {name_ps[i],at_d[i]};
+
         vars[i] = v; 
         // Each bound will have to be its own expression. The eval of each expr stored in at_d
         bounds_ex[i*2] = te_compile(bounds[i*2], vars, varc, NULL);
@@ -64,7 +61,6 @@ double mulvar_iint(char * expr, int varc, char *varnames, char **bounds) {
     double value = mulvar_iint_h(f, at_d, bounds_ex, 0, varc);
     // free memory
     for (int i = 0; i < varc; i++) {
-        free(name_ps[i]);
         te_free(bounds_ex[i*2]);
         te_free(bounds_ex[i*2+1]);
     }
