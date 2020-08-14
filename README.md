@@ -19,3 +19,4 @@ Calculus tools for numerical methods written in C.
 #### - Vector functions and operations
 #### - Differentiation of several variables
 #### - Some form of interpreter to execute each feature sequentially
+#### - Minimum/Max/Saddle point finding
