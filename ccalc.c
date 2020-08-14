@@ -43,6 +43,14 @@ int main(int argc, char *argv[]) {
         else if (!strcmp(argv[1], "run_file")) {
             freadhm(argv[2], NULL);
         }
+        else if (!strcmp(argv[1], "mul_int")) {
+            char *varbuff;
+            char *bounds[argc-3];
+            int varc = var_count(argv[2], &varbuff);
+            printf("%d\n", varc);
+            printf("%f\n", mulvar_iint(argv[2], varc, varbuff, &argv[3]));
+            free(varbuff);
+        }
         else if (!strcmp(argv[1], "taylor")) {
             double a = 0;
             int terms = atoi(argv[3]);
@@ -57,11 +65,7 @@ int main(int argc, char *argv[]) {
             te_free(expr);
         }
         else if (!strcmp(argv[1], "test")) {
-            char *varbuff;
-            char *bounds[] = {"1","2","3","x^2", "1","x"};
-            int varc = var_count("x+y+z", &varbuff);
-            printf("%f\n", mulvar_iint("x+y+z", varc, varbuff, bounds));
-            free(varbuff);
+
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);

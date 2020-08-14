@@ -10,19 +10,20 @@ int var_count(const char *expr, char **variables) {
     which[25-'z'+expr[0]] = count;
     char val;
     for (int i = 1;;i++) {
-       
+        
         if (expr[i+1] == '\0') {
             count += var_allowmap[25-'z'+expr[i]] && !isalnum(expr[i-1]);
             which[25-'z'+expr[i]] = 1;
             break;
         }
-        else if (!isalnum(expr[i-1]) && !isalnum(expr[i+1])) {
+        else if (!isalnum(expr[i-1]) && !isalnum(expr[i+1]) && isalpha(expr[i])) {
             which[25-'z'+expr[i]] = 1;
             count++;
         }
 
     }
-    *variables = (char *) malloc(sizeof(char)*count);
+    *variables = (char *) malloc(sizeof(char)*count); 
+    // I'd like to have memory allocated on the stack and its pointer passed into here instead
     for (int i = 0, j = 0; i < charsize; i++) {
         if (which[i]) {
             (*variables)[j++] = i-25+'z';
