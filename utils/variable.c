@@ -6,7 +6,7 @@ const char var_allowmap[charsize] = {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 int var_count(const char *expr, char **variables) {
     int count = var_allowmap[25-'z'+expr[0]] && !isalnum(expr[1]);
     // Due to order, all differentials will be placed alphabetically.
-    char which[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    char which[26] = {0}; 
     which[25-'z'+expr[0]] = count;
     char val;
     for (int i = 1;;i++) {
@@ -31,3 +31,4 @@ int var_count(const char *expr, char **variables) {
     }
     return count;
 }
+

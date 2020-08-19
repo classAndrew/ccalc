@@ -73,6 +73,9 @@ int main(int argc, char *argv[]) {
             te_expr *expr = te_compile("y*x^2+x*y^2", vars, 2, NULL);
             printf("%f\n", partial_at(expr, terms, "xy"));
         }
+        else if (!strcmp(argv[1], "par_diff")) {
+            
+        }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
             exit(-1);
