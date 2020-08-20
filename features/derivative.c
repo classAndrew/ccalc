@@ -45,3 +45,21 @@ double partial_at(te_expr *expr, double **point, char *order) {
     return (prev2-prev1)/dx;
 }
     
+double partial_wrapper(char **argv, int argc) {
+    double var_addrs[26] = {1.0}; // just one-initialize everything for now. this is point (1, 1, 1...)
+    double *addresses[argc-2];
+    te_variable vars[argc-2];
+    char order[argc-1];
+    int i = 0;
+    for (int i = 0; i < argc; i++) { // work on later
+        vars[i].name = *p;
+        addresses[i] = &var_addrs['z'-(**p)];
+        vars[i].address = addresses[i];
+        order[i] = **p;
+    }
+    order[i] = '\0';
+    te_expr *expr = te_compile(argv[2], vars, argc-2, NULL);
+    double val = partial_at(expr, addresses, order);
+    te_free(expr);
+    return val;
+}

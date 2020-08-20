@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
             printf("%f\n", partial_at(expr, terms, "xy"));
         }
         else if (!strcmp(argv[1], "par_diff")) {
-            
+            printf("%f\n", partial_wrapper(argv, argc));
         }
         else {
             fputs("Unknown Command! See ccalc help.\n", stderr);
