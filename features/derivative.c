@@ -44,21 +44,26 @@ double partial_at(te_expr *expr, double **point, char *order) {
     double prev1 = partial_at(expr, point, order+1);
     return (prev2-prev1)/dx;
 }
-    
+
+
+// Just a wrapper around partial derivatives. 
+// example usage: ./ccalc par_diff "y*x^2+x*y^2" y 1 x 1   
 double partial_wrapper(char **argv, int argc) {
-    double var_addrs[26] = {1.0}; // just one-initialize everything for now. this is point (1, 1, 1...)
-    double *addresses[argc-2];
-    te_variable vars[argc-2];
-    char order[argc-1];
+    double var_vals[26] = {0}; 
+    double *addresses[26];
+    te_variable vars[(argc-3)/2];
+    char order[argc-2];
     int i = 0;
-    for (int i = 0; i < argc; i++) { // work on later
-        vars[i].name = *p;
-        addresses[i] = &var_addrs['z'-(**p)];
-        vars[i].address = addresses[i];
-        order[i] = **p;
+    for (char **p = argv+3; i < (argc-3)/2; i++) {
+        var_vals[(**(p+i*2))-'a'] = strtod(*(p+i*2+1), NULL);
+        addresses[(**(p+i*2))-'a'] = &var_vals[(**(p+i*2))-'a'];
+        te_variable var = {*(p+i*2), &var_vals[(**(p+i*2))-'a']};
+        vars[i] = var;
+        order[i] = **(p+i*2);
     }
     order[i] = '\0';
-    te_expr *expr = te_compile(argv[2], vars, argc-2, NULL);
+    te_expr *expr = te_compile(argv[2], vars, argc-3, NULL);
+    puts(vars[0].name);
     double val = partial_at(expr, addresses, order);
     te_free(expr);
     return val;
