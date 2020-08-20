@@ -49,21 +49,21 @@ double partial_at(te_expr *expr, double **point, char *order) {
 // Just a wrapper around partial derivatives. 
 // example usage: ./ccalc par_diff "y*x^2+x*y^2" y 1 x 1   
 double partial_wrapper(char **argv, int argc) {
-    double var_vals[26] = {0}; 
+    double var_vals[26]; 
     double *addresses[26];
     te_variable vars[(argc-3)/2];
-    char order[argc-2];
+    char order[(argc-3)/2+1];
     int i = 0;
     for (char **p = argv+3; i < (argc-3)/2; i++) {
-        var_vals[(**(p+i*2))-'a'] = strtod(*(p+i*2+1), NULL);
-        addresses[(**(p+i*2))-'a'] = &var_vals[(**(p+i*2))-'a'];
-        te_variable var = {*(p+i*2), &var_vals[(**(p+i*2))-'a']};
+        int index = (**(p+i*2))-'a';
+        var_vals[index] = strtod(*(p+i*2+1), NULL);
+        addresses[index] = &var_vals[index];
+        te_variable var = {*(p+i*2), &var_vals[index]};
         vars[i] = var;
         order[i] = **(p+i*2);
     }
     order[i] = '\0';
-    te_expr *expr = te_compile(argv[2], vars, argc-3, NULL);
-    puts(vars[0].name);
+    te_expr *expr = te_compile(argv[2], vars, (argc-3)/2, NULL);
     double val = partial_at(expr, addresses, order);
     te_free(expr);
     return val;

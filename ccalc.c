@@ -66,12 +66,12 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "test")) {
             // Will need to clean this up later
-            double a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x=1,y=1,z;
-            te_variable vars[] = {{"x", &x}, {"y", &y}};
+            double a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x=1,y=1,z=1;
+            te_variable vars[] = {{"x", &x}, {"y", &y}, {"z", &z}};
             double *terms[26];
-            terms[24] = &y, terms[23] = &x;
-            te_expr *expr = te_compile("y*x^2+x*y^2", vars, 2, NULL);
-            printf("%f\n", partial_at(expr, terms, "xy"));
+            terms[24] = &y, terms[23] = &x, terms[25]=&z;
+            te_expr *expr = te_compile("y*x^2+x*y^2+z*x*y", vars, 3, NULL);
+            printf("%f\n", partial_at(expr, terms, "xyz"));
         }
         else if (!strcmp(argv[1], "par_diff")) {
             printf("%f\n", partial_wrapper(argv, argc));
