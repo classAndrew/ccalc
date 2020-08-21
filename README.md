@@ -12,12 +12,13 @@ Calculus tools for numerical methods written in C.
     - This includes both Type I & II Regions (well any region of space, plane, line, hyperspace)...
   - Root finding
     - Implementation of Newton's method. Converges to roots pretty quickly
+  - Differentiation of several variables
+    - Find the derivatives of n-varible functions at a point
 
 ### Prospective features:
 #### - Line integrals
 #### - Jacobian transforms
 #### - Vector functions and operations
-#### - Differentiation of several variables
 #### - Some form of interpreter to execute each feature sequentially
 #### - Minimum/Max/Saddle point finding
 #### - Matrices & Operations
