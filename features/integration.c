@@ -3,7 +3,7 @@
 double integrateLSum(double (*f)(double x), int n, double a, double b) {
     double deltax = (b-a)/n;
      double sum = 0;
-    for (; a < b; a+=deltax) {
+    for (; fabs(b-a) > fabs(deltax); a+=deltax) {
         sum += f(a);
     }
     return sum*deltax;
@@ -14,7 +14,7 @@ double integrateSim(double (*f)(double x), int n, double a, double b) {
     double sum = f(a)+f(b);
     double deltax = (b-a)/n;
     int i = 0;
-    while ((a += deltax) < b) {
+    while (fabs(b-(a += deltax)) > fabs(deltax)) {
         sum += f(a)*((++i)&1 ? 2 : 1);
     }
     return sum*deltax*(2.0/3);
@@ -30,7 +30,7 @@ double integrateSim_AST(char *expr, int n, double a, double b) {
     a = old;
     double deltax = (b-a)/n;
     int i = 0;
-    while ((a += deltax) < b) {
+    while (fabs(b-(a += deltax)) > fabs(deltax)) {
         // var_add(progvars, 'x', a);
         sum += te_eval(node)*((++i)&1 ? 2 : 1);
     }
