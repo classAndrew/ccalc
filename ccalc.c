@@ -45,11 +45,19 @@ int main(int argc, char *argv[]) {
         }
         else if (!strcmp(argv[1], "mul_int")) {
             char *varbuff;
+            char def[3] = {'x', 'y', 'z'};
+            char need_free = 1;
             char *bounds[argc-3];
             int varc = var_count(argv[2], &varbuff);
-            printf("%d\n", varc);
+            if (!varc) { // If no variables found in the expression, just default them to xyz and in that integration order
+                varbuff = def;
+                varc = 3;
+                need_free = 0;
+            }
             printf("%f\n", mulvar_iint(argv[2], varc, varbuff, &argv[3]));
-            free(varbuff);
+            if (need_free){
+                free(varbuff);
+            }
         }
         else if (!strcmp(argv[1], "taylor")) {
             double a = 0;

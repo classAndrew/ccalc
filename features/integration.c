@@ -38,12 +38,17 @@ double integrateSim_AST(char *expr, int n, double a, double b) {
     return sum*deltax*(2.0/3);
 }
 
+// A bit buggy right now. Will have to specify order without affecting the integrand by doing something like x*y*z*0+f(x,y,z)
+// in order to specify integration order
+// example: ./a "mul_int" "x*y*z*0+1" -1 1 "-1*(1-x^2)^.5" "(1-x^2)^.5" "-1*(1.001-x^2-y^2)^.5" "(1.001-x^2-y^2)^.5"
+// 1.001 is used instead of 1 because floating point error will drift x^2+y^2 into > 1 which will return NaN when under the root
 double mulvar_iint(char * expr, int varc, char *varnames, char **bounds) {
     te_variable vars[varc];
     double vec[varc];
     double *at_d[varc]; 
     char name_ps[2][varc];
     te_expr *bounds_ex[varc*2];
+
     for (int i = 0; i < varc; i++) {
         name_ps[i][0] = varnames[i];
         name_ps[i][1] = '\0';
