@@ -22,3 +22,4 @@ Calculus tools for numerical methods written in C.
 #### - Some form of interpreter to execute each feature sequentially
 #### - Minimum/Max/Saddle point finding
 #### - Matrices & Operations
+#### - API
