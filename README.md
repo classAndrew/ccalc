@@ -16,6 +16,7 @@ Calculus tools for numerical methods written in C.
     - Find the derivatives of n-varible functions at a point
 
 ### Prospective features:
+#### - Euler's Method
 #### - Line integrals
 #### - Jacobian transforms
 #### - Vector functions and operations
