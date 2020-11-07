@@ -24,3 +24,4 @@ Calculus tools for numerical methods written in C.
 #### - Minimum/Max/Saddle point finding
 #### - Matrices & Operations
 #### - API
+#### - Program design overhaul (I really need to do this soon >.>)
