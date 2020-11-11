@@ -1,24 +1,32 @@
-# MOVE THIS OUTSIDE THE SOURCE DIRECTORY (THE DIRECTORY THIS FILE IS CURRENTLY SITTING IN IS THE SOURCE DIRECTORY)
-CC        := gcc
-SRC_DIR   := ccalc
-BUILD_DIR := build
-SUB_DIR   := build/utils build/parsing build/features
-BINARY    := a
-LIBS      := -lm
-PREPROC   := -D DEBUG_ON
-CFLAGS    := -g
+CC := gcc # This is the main compiler
+# CC := clang --analyze # and comment out the linker last line for sanity
+SRCDIR := src
+BUILDDIR := build
+TARGET := bin/runner
+ 
+SRCEXT := c
+SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+SUBDIRS := $(shell find $(SRCDIR) -type d -printf "%p/\n" | sed 's/[^\/]*\///' | sed 's/^/$(BUILDDIR)\//')
+OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
+CFLAGS := -g # -Wall
+INC := -I include
+LDFLAGS := -lm
 
-SOURCES := $(shell find $(SRC_DIR) -name '*.c' | sort -k 1nr | cut -f2-)
-OBJECTS := $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-DEPS    := $(OBJECTS:.o=.d)
+$(TARGET): $(OBJECTS)
+	@echo " Linking..."
+	@echo " $(CC) $^ -o $(TARGET) $(LIB) $(LDFLAGS)"; $(CC) $^ -o $(TARGET) $(LIB) $(LDFLAGS)
 
-$(BINARY) : $(OBJECTS)
-	$(CC) $(OBJECTS) $(LIBS) -o $@
-
-$(BUILD_DIR)/%.o : $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(PREPROC) -MMD -MP -c $< -o $@
+$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(SUBDIRS)
+	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 clean:
-	rm -rf $(BUILD_DIR) && mkdir $(BUILD_DIR) && mkdir $(SUB_DIR)
+	@echo " Cleaning..."; 
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
 
--include $(DEPS)
+# Tests
+tester:
+	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/tester
+
+.PHONY: clean
